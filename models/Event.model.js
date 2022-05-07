@@ -2,10 +2,17 @@ const { Schema, model } = require("mongoose");
 
 const eventSchema = new Schema(
     {
-        username: {
-            type: String,
+        title:String,
+        date:Date,
+        mainArtist: { type: Schema.Types.ObjectId, ref: 'Artist' },
+        secondaryArtists: [{ type: Schema.Types.ObjectId, ref: 'Artist' }],
+        venue: { type: Schema.Types.ObjectId, ref: 'Venue' },
+        isAproved:{
+            MainArtist:Boolean,
+            Venue:Boolean
         },
-        password: String,
+        creator:Object
+
     },
     {
         timestamps: true,
@@ -15,5 +22,3 @@ const eventSchema = new Schema(
 const Event = model("Event", eventSchema);
 
 module.exports = Event;
-
-title, date, MainArtist(populated), REstArtists(populated), venue(populated), isAproved{ MainArtist(booleans), Venue(boolean) }, creator(currentUSer)

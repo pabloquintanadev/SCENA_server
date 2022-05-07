@@ -2,10 +2,16 @@ const { Schema, model } = require("mongoose");
 
 const venueSchema = new Schema(
     {
-        username: {
-            type: String,
+        username:String,
+        email:String,
+        password:String,
+        description:String,
+        address:String,
+        capacity:Number,
+        images: {
+            avatar: { type: String, default: 'https://i.stack.imgur.com/l60Hf.png' },
+            rest: [String]
         },
-        password: String,
     },
     {
         timestamps: true,
@@ -16,5 +22,3 @@ const Venue = model("Venue", venueSchema);
 
 module.exports = Venue;
 
-
-username, email, password, address, images{ avatar, rest }, description, capacity
