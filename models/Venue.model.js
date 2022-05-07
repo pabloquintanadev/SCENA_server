@@ -17,4 +17,4 @@ const Venue = model("Venue", venueSchema);
 module.exports = Venue;
 
 
-username, email, password, address, avatar, images, description, capacity
+username, email, password, address, images{ avatar, rest }, description, capacity

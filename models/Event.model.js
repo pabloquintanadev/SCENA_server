@@ -15,3 +15,5 @@ const eventSchema = new Schema(
 const Event = model("Event", eventSchema);
 
 module.exports = Event;
+
+title, date, MainArtist(populated), REstArtists(populated), venue(populated), isAproved{ MainArtist(booleans), Venue(boolean) }, creator(currentUSer)
