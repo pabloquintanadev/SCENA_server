@@ -2,14 +2,23 @@ const { Schema, model } = require("mongoose");
 
 const venueSchema = new Schema(
     {
-        username:String,
-        email:String,
-        password:String,
-        description:String,
-        address:String,
-        capacity:Number,
+        username: {
+            type: String,
+            unique: [true, 'El nombre de usuario ya está registrado']
+        },
+        email: {
+            type: String,
+            unique: [true, 'El email ya está registrado']
+        },
+        password: String,
+        description: String,
+        address: String,
+        capacity: Number,
         images: {
-            avatar: { type: String, default: 'https://i.stack.imgur.com/l60Hf.png' },
+            avatar: {
+                type: String,
+                default: './../img/defaultImg.png'
+            },
             rest: [String]
         },
     },
