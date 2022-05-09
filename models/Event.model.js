@@ -20,8 +20,8 @@ const eventSchema = new Schema(
             ref: 'Venue'
         },
         isAproved: {
-            MainArtist: Boolean,
-            Venue: Boolean
+            mainArtist: Boolean,
+            venue: Boolean
         },
         creator: Object
 

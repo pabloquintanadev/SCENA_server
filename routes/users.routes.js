@@ -19,5 +19,9 @@ router.post('/edit-profile/:id', (req, res) => {
     res.json(id)
 })
 
+router.post('/:id/delete', (req, res) => {
+    const { id } = req.params
+    res.json(id)
+})
 
 module.exports = router;

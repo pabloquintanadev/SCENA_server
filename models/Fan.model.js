@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const userSchema = new Schema(
+const fanSchema = new Schema(
   {
     user: {
       type: Schema.Types.ObjectId,
@@ -24,6 +24,6 @@ const userSchema = new Schema(
   }
 );
 
-const User = model("User", userSchema);
+const Fan = model("Fan", fanSchema);
 
-module.exports = User;
+module.exports = Fan;

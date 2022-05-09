@@ -24,6 +24,9 @@
 | METHOD | URL | DESCRIPTION |
 | --- | --- | --- |
 | GET | api/events | return all events |
+| GET | api/events/:id | return details |
+| POST | api/events/:id/edit | edit the event |
+| POST | api/events/:id/delete | delete the event |
 
 ### LABELS
 | METHOD | URL | DESCRIPTION |
@@ -40,11 +43,11 @@
 | POST | api/users/register | create a new user |
 | POST | api/users/edit-profile | edit a user profile |
 
-### ATTENDANTS
+### FANS
 | METHOD | URL | DESCRIPTION |
 | --- | --- | --- |
-| GET | api/attendants | return all attendants |
-| GET | api/attendants/:id | return one attendant info|
-| POST | api/attendants/:id/likedEvents | Add liked events |
-| POST | api/attendants/:id/likedArtists | Add liked artists 
-| POST | api/attendants/:id/likedVenues | Add liked venues |
+| GET | api/fans | return all fans |
+| GET | api/fans/:id | return one fan info|
+| POST | api/fans/:id/likedEvents | Add liked events |
+| POST | api/fans/:id/likedArtists | Add liked artists 
+| POST | api/fans/:id/likedVenues | Add liked venues |

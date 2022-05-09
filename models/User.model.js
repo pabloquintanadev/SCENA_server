@@ -11,16 +11,13 @@ const userSchema = new Schema(
       unique: [true, 'El email ya está registrado']
     },
     password: String,
-    avatar: {
-      type: String,
-      default: './../img/defaultImg.png'
-    },
     networks: {
       instagram: { type: String },
       spotify: { type: String },
       soundcloud: { type: String },
       twitter: { type: String }
     },
+    phoneNumber:Number,
     images: {
       avatar: {
         type: String,
@@ -29,8 +26,8 @@ const userSchema = new Schema(
       others: [String]
     },
     role: {
-      type:String,
-      enum:['Attendant','Artist','Venue','Event','Label']
+      type: String,
+      enum: ['Attendant', 'Artist', 'Venue', 'Event', 'Label']
     }
   },
   {

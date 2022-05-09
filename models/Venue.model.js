@@ -7,7 +7,14 @@ const venueSchema = new Schema(
             ref: 'User'
         },
         description: String,
-        address: String,
+        address: {
+            street: String,
+            number: Number,
+            floor: Number,
+            letter: String,
+            postalCode: Number,
+            city: String
+        },
         capacity: Number
     },
     {
