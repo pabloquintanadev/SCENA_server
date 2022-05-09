@@ -3,44 +3,48 @@
 
 ## END-POINTS
 
-| ARTIST|
+
+### ARTIST
 | METHOD | ENDPOINT | DESCRIPTION |
 | --- | --- | --- |
-| GET | /artists | return all artists |
-| GET | /artists/:artistId | return one artist info |
-| GET | /artists/search/:artistName | return a rearching that fits |
-| GET | /artists/search/:style | return a searching that fits |
-| POST | /artists/register | create a new artist |
-| POST | /artists/edit-profile | edit an artist profile |
+| GET | api/artists | return all artists |
+| GET | api/artists/:artistId | return one artist info |
+| GET | api/artists/search/:artistName | return a rearching that fits |
+| GET | api/artists/search/style/:style | return a searching that fits |
 
-
-| VENUES|
+### VENUES
 | METHOD | URL | DESCRIPTION |
 | --- | --- | --- |
-| GET | /venues | return all venues |
-| GET | /venues/:venueId | return one venues info |
-| GET | /venues/search/:venueName | return a rearching that fits |
-| GET | /venues/search/:district | return a searching that fits ***** |
-| POST | /venues/register | create a new venue |
-| POST | /venues/edit-profile | edit an venue profile |
+| GET | api/venues | return all venues |
+| GET | api/venues/:venueId | return one venue info |
+| GET | api/venues/search/:venueName | return a rearching that fits |
+| GET | api/venues/search/location/:district | return a searching that fits ***** |
 
-
-| LABELS|
+### EVENTS
 | METHOD | URL | DESCRIPTION |
 | --- | --- | --- |
-| GET | /labels | return all labels |
-| GET | /labels/:labelId | return one venues info |
-| GET | /labels/search/:labelName | return a rearching that fits |
-| POST | /labels/register | create a new label |
-| POST | /labels/edit-profile | edit a label profile |
+| GET | api/events | return all events |
 
-
-| USERS|
+### LABELS
 | METHOD | URL | DESCRIPTION |
 | --- | --- | --- |
-| GET | /users | return all venues |
-| GET | /users/:userId | return one user info |
-| POST | /users/register | create a new user |
-| POST | /users/edit-profile | edit a user profile |
+| GET | api/labels | return all labels |
+| GET | api/labels/:labelId | return one venues info |
+| GET | api/labels/search/:labelName | return a rearching that fits |
 
+### USERS
+| METHOD | URL | DESCRIPTION |
+| --- | --- | --- |
+| GET | api/users | return all venues |
+| GET | api/users/details/:userId | return one user info |
+| POST | api/users/register | create a new user |
+| POST | api/users/edit-profile | edit a user profile |
 
+### ATTENDANTS
+| METHOD | URL | DESCRIPTION |
+| --- | --- | --- |
+| GET | api/attendants | return all attendants |
+| GET | api/attendants/:id | return one attendant info|
+| POST | api/attendants/:id/likedEvents | Add liked events |
+| POST | api/attendants/:id/likedArtists | Add liked artists 
+| POST | api/attendants/:id/likedVenues | Add liked venues |

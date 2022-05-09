@@ -2,25 +2,15 @@ const { Schema, model } = require("mongoose");
 
 const labelSchema = new Schema(
     {
-        username: {
-            type: String,
-            unique: [true, 'El nombre de usuario ya está registrado']
+        user: {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
         },
-        email: {
-            type: String,
-            unique: [true, 'El email ya está registrado']
-        },
-        password: String,
         description: String,
-        avatar: {
+        duty:{
             type: String,
-            default: './../img/defaultImg.png'
-        },
-        role: {
-            type: String,
-            enum: ['Label', 'Management']
+            enum: ['RecordLabel', 'Management']
         }
-
     },
     {
         timestamps: true,

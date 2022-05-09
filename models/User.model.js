@@ -15,18 +15,23 @@ const userSchema = new Schema(
       type: String,
       default: './../img/defaultImg.png'
     },
-    likedEvents: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Event'
-    }],
-    likedArtists: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Artist'
-    }],
-    likedVenues: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Venue'
-    }]
+    networks: {
+      instagram: { type: String },
+      spotify: { type: String },
+      soundcloud: { type: String },
+      twitter: { type: String }
+    },
+    images: {
+      avatar: {
+        type: String,
+        default: './../img/defaultImg.png'
+      },
+      others: [String]
+    },
+    role: {
+      type:String,
+      enum:['Attendant','Artist','Venue','Event','Label']
+    }
   },
   {
     timestamps: true,
