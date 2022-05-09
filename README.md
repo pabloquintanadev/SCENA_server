@@ -6,12 +6,12 @@
 | ARTIST|
 | METHOD | ENDPOINT | DESCRIPTION |
 | --- | --- | --- |
-| GET | /artist | return all artists |
+| GET | /artists | return all artists |
 | GET | /artists/:artistId | return one artist info |
-| GET | /artist/search/:artistName | return a rearching that fits |
-| GET | /artist/search/:style | return a searching that fits |
-| POST | /artist/register | create a new artist |
-| POST | /artist/edit-profile | edit an artist profile |
+| GET | /artists/search/:artistName | return a rearching that fits |
+| GET | /artists/search/:style | return a searching that fits |
+| POST | /artists/register | create a new artist |
+| POST | /artists/edit-profile | edit an artist profile |
 
 
 | VENUES|
