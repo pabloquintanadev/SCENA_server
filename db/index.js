@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 
-const MONGO_URI = process.env.MONGODB_URI || "mongodb://localhost/SCENA_server";
+const MONGO_URI = process.env.MONGODB_REMOTE || "mongodb+srv://Scena:templozen@scena.cfm1c.mongodb.net/ScenaBBDD";
 
 mongoose
   .connect(MONGO_URI)
