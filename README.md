@@ -24,6 +24,7 @@
 | METHOD | URL | DESCRIPTION |
 | --- | --- | --- |
 | GET | api/events | return all events |
+| POST | api/events/:id/create | create an event |
 | GET | api/events/:id | return details |
 | POST | api/events/:id/edit | edit the event |
 | POST | api/events/:id/delete | delete the event |
