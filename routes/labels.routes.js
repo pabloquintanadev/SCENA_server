@@ -1,6 +1,5 @@
 const router = require("express").Router();
 
-const User = require('./../models/User.model')
 const Label = require('./../models/Label.model')
 
 router.get('/', (req, res) => {
