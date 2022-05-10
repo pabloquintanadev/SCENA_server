@@ -34,6 +34,9 @@
 | GET | api/labels | return all labels |
 | GET | api/labels/:labelId | return one venues info |
 | GET | api/labels/search/:labelName | return a rearching that fits |
+| POST | api/labels/register/:labelName | registera new labels |
+| POST | api/labels/delete/:id | delte a label |
+
 
 ### USERS
 | METHOD | URL | DESCRIPTION |
@@ -51,3 +54,4 @@
 | POST | api/fans/:id/likedEvents | Add liked events |
 | POST | api/fans/:id/likedArtists | Add liked artists 
 | POST | api/fans/:id/likedVenues | Add liked venues |
+| POST | api/fans/delete/:id | Delete fan |
