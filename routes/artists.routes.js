@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
         .catch((err) => res.status(500).json(err))
 })
 
-router.get('/:artistId', (req, res) => {
+router.get('details/:artistId', (req, res) => {
 
     const { artistId } = req.params
 
@@ -33,15 +33,16 @@ router.get('/:artistId', (req, res) => {
         .catch((err) => res.status(500).json(err))
 })
 
-router.get('/search/:artistName', (req, res) => {
+router.get('/search/:username', (req, res) => {
 
-    const { artistName } = req.params
+    const { username } = req.params
 
     Artist
-        .find(artistName)
+        .find({username})
         .populate('label')
         .then((artist) => {
-            res.status(200).json(artist)
+            console.log(artist)
+            res.status(200).json({artist})
         })
         .catch((err) => res.status(500).json(err))
 })
@@ -51,7 +52,7 @@ router.get('/search/style/:style', (req, res) => {
     const { style } = req.params
 
     Artist
-        .find(style)
+        .find({style})
         .populate('label')
         .then((artist) => {
             res.status(200).json(artist)
