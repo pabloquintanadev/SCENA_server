@@ -334,4 +334,6 @@ router.post('/login/label', (req, res, next) => {
         })
 })
 
+module.exports = router
+
 
