@@ -1,22 +1,21 @@
 const router = require("express").Router()
 
 const Event = require('./../models/Event.model')
-const User = require('./../models/User.model')
 
 router.get('/', (req, res) => {
 
     Event
         .find()
-        .then(response => res.json(response))
+        .populate('mainArtist secondaryArtists venue')
+        .then(events => res.json(events))
         .catch(err => res.status(500).json(err))
 })
 
 router.post('/create', (req, res) => {
-    const { username, email, password, phoneNumber, title, date, mainArtist, secondaryArtists, venue, creator, aprovedArtist, aprovedVenue } = req.body
+    const { title, date, mainArtist, secondaryArtists, venue, aprovedArtist, aprovedVenue, creator } = req.body
 
-    User
-        .create({ username, email, password, phoneNumber })
-        .then(createdUser => { Event.create({ user: createdUser._id, title, date, mainArtist, secondaryArtists, venue, isAproved: { mainArtist: aprovedArtist, venue: aprovedVenue}, creator })})
+    Event
+        .create({ title, date, mainArtist, secondaryArtists, venue, isAproved: { mainArtist: aprovedArtist, venue: aprovedVenue }, creator })
         .then(createdEvent => res.json(createdEvent))
         .catch(err => res.status(500).json(err))
 
@@ -27,7 +26,8 @@ router.get('/:id', (req, res) => {
 
     Event
         .findById(id)
-        .then(response => res.json(response))
+        .populate('mainArtist secondaryArtists venue')
+        .then(event => res.json(event))
         .catch(err => res.status(500).json(err))
 })
 
@@ -42,10 +42,10 @@ router.post('/:id/delete', (req, res) => {
 
 router.post('/:id/edit', (req, res) => {
     const { id } = req.params
-    const { title, date, mainArtist, secondaryArtists, venue, isApproved, creator } = req.body
+    const { title, date, mainArtist, secondaryArtists, venue, aprovedArtist, aprovedVenue, creator } = req.body
 
     Event
-        .findByIdAndUpdate(id, { title, date, mainArtist, secondaryArtists, venue, isApproved, creator })
+        .findByIdAndUpdate(id, { title, date, mainArtist, secondaryArtists, venue, isAproved: { mainArtist: aprovedArtist, venue: aprovedVenue }, creator })
         .then(() => res.json(response))
         .catch(err => res.status(500).json(err))
 })
