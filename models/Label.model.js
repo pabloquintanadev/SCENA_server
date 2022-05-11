@@ -17,7 +17,7 @@ const labelSchema = new Schema(
             soundcloud: { type: String },
             twitter: { type: String }
         },
-        phoneNumber: Number,
+        phoneNumber: String,
         images: {
             avatar: {
                 type: String,

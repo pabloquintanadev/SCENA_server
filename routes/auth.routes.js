@@ -127,6 +127,7 @@ router.post('/register/fan', (req, res, next) => {
 // 4. Label
 router.post('/register/label', (req, res, next) => {
 
+    console.log('HE ENTRADO AQUI')
     const { username, email, password, instagram, spotify, soundcloud, twitter, phoneNumber, avatar, others, role, duty, description } = req.body
 
     if (password.length < 2) {
@@ -334,4 +335,6 @@ router.post('/login/label', (req, res, next) => {
         })
 })
 
+
+module.exports=router
 
