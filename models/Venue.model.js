@@ -38,7 +38,7 @@ const venueSchema = new Schema(
             postalCode: Number,
             city: String
         },
-        capacity: Number
+        c: Number
     },
     {
         timestamps: true,
