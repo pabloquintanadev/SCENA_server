@@ -24,8 +24,8 @@ const eventSchema = new Schema(
             mainArtist: Boolean,
             venue: Boolean
         },
-        creator: Object
-
+        creator: Object,
+        description: String
     },
     {
         timestamps: true,
