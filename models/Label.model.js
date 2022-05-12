@@ -27,7 +27,7 @@ const labelSchema = new Schema(
         },
         role: {
             type: String,
-            enum: ['Attendant', 'Artist', 'Venue', 'Event', 'Label']
+            default: 'Label'
         },
         description: String,
         duty:{

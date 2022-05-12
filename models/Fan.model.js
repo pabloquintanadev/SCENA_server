@@ -10,13 +10,6 @@ const fanSchema = new Schema(
       type: String,
       unique: [true, 'El email ya está registrado']
     },
-    password: String,
-    networks: {
-      instagram: { type: String },
-      spotify: { type: String },
-      soundcloud: { type: String },
-      twitter: { type: String }
-    },
     phoneNumber: String,
     images: {
       avatar: {
@@ -27,7 +20,8 @@ const fanSchema = new Schema(
     },
     role: {
       type: String,
-      enum: ['Attendant', 'Artist', 'Venue', 'Event', 'Label']
+      enum: ['Fan', 'Admin'],
+      default: 'Fan'
     },
     likedEvents: [{
       type: Schema.Types.ObjectId,
