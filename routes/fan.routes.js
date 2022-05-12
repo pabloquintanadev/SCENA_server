@@ -10,8 +10,9 @@ router.get('/', (req, res) => {
 
     Fan
         .find()
-        .populate('likedEvents likedArtists likedVenues')
-        .populate()
+        .populate('likedEvents')
+        .populate('likedArtists')
+        .populate('likedVenues')
         .then((fans) => {
             res.status(200).json(fans)
         })
@@ -25,7 +26,9 @@ router.get('/:fanId', (req, res) => {
 
     Fan
         .findById(fanId)
-        .populate('likedEvents likedArtists likedVenues')
+        .populate('likedEvents')
+        .populate('likedArtists')
+        .populate('likedVenues')
         .then((fan) => {
             res.status(200).json(fan)
         })
