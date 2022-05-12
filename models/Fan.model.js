@@ -10,13 +10,9 @@ const fanSchema = new Schema(
       type: String,
       unique: [true, 'El email ya está registrado']
     },
-    phoneNumber: String,
-    images: {
-      avatar: {
-        type: String,
-        default: './../img/defaultImg.png'
-      },
-      others: [String]
+    avatar: {
+      type: String,
+      default: './../img/defaultImg.png'
     },
     role: {
       type: String,

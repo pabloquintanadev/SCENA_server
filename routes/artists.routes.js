@@ -52,7 +52,11 @@ router.get('/search/style/:style', (req, res) => {
     const { style } = req.params
 
     Artist
-        .find({ style })
+        .find({$or: [
+            { 'style1': style },
+            { 'style2': style },
+            { 'style3': style }
+        ]})
         .populate('label')
         .then((artist) => {
             res.status(200).json(artist)
@@ -78,33 +82,3 @@ router.post('/delete/:id', (req, res) => {
 module.exports = router;
 
 
-function sumPairs(ints, s) {
-    let first
-    let second
-    let result
-
-    for (let i = ints[0]; i < ints.length; i++) {
-        for (let j = ints[1]; j < ints.length; j++) {
-            console.log(i, j)
-            if (ints[i] + ints[j] == s) {
-                first = ints[i]
-                second = ints[j]
-                console.log(first, second)
-            }
-            else if (ints[i] + ints[j] !== s) {
-                j++
-            }
-            else if (ints[i] + ints[ints.length] !== s) {
-                i++
-            }
-
-        }
-
-    }
-    if (first == undefined && second == undefined) {
-        return undefined
-    }
-    else {
-        return [first, second];
-    }
-}

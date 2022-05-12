@@ -13,32 +13,31 @@ const venueSchema = new Schema(
         password: String,
         networks: {
             instagram: { type: String },
-            spotify: { type: String },
-            soundcloud: { type: String },
             twitter: { type: String }
         },
         phoneNumber: String,
+        avatar: {
+            type: String,
+            default: './../img/defaultImg.png'
+        },
         images: {
-            avatar: {
-                type: String,
-                default: './../img/defaultImg.png'
-            },
-            others: [String]
+            image1: { type: String },
+            image2: { type: String },
+            image3: { type: String },
+            image4: { type: String },
         },
         role: {
             type: String,
-            enum: ['Attendant', 'Artist', 'Venue', 'Event', 'Label']
+            default: 'Venue'
         },
         description: String,
         address: {
             street: String,
             number: Number,
-            floor: Number,
-            letter: String,
             postalCode: Number,
             city: String
         },
-        c: Number
+        capacity: Number
     },
     {
         timestamps: true,

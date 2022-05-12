@@ -14,7 +14,25 @@ const Label = require('./../models/Label.model')
 // 1. Venue
 router.post('/register/venue', (req, res, next) => {
 
-    const { username, email, password, instagram, spotify, soundcloud, twitter, phoneNumber, avatar, others, description, street, number, floor, letter, postalCode, city, capacity } = req.body
+    const {
+        username,
+        email,
+        password,
+        instagram,
+        twitter,
+        phoneNumber,
+        avatar,
+        image1,
+        image2,
+        image3,
+        image4,
+        description,
+        street,
+        number,
+        postalCode,
+        city,
+        capacity
+    } = req.body
 
     if (password.length < 2) {
         res.status(400).json({ message: 'Password must have at least 3 characters' })
@@ -33,7 +51,22 @@ router.post('/register/venue', (req, res, next) => {
             const salt = bcrypt.genSaltSync(saltRounds)
             const hashedPassword = bcrypt.hashSync(password, salt)
 
-            return Venue.create({ username, email, password: hashedPassword, networks: { instagram, spotify, soundcloud, twitter }, phoneNumber, images: { avatar, others }, role: 'Venue', description, address: { street, number, floor, letter, postalCode, city }, capacity })
+            return Venue.create({
+                username,
+                email,
+                password: hashedPassword,
+                networks:
+                    { instagram, twitter },
+                phoneNumber,
+                avatar,
+                images:
+                    { image1, image2, image3, image4 },
+                role: 'Venue',
+                description,
+                address:
+                    { street, number, postalCode, city },
+                capacity
+            })
         })
         .then(createdVenue => { res.status(200).json(createdVenue) })
         .catch(err => res.status(500).json(err))
@@ -43,7 +76,25 @@ router.post('/register/venue', (req, res, next) => {
 // 2. Artist
 router.post('/register/artist', (req, res, next) => {
 
-    const { username, email, password, instagram, spotify, soundcloud, twitter, phoneNumber, avatar, others, role, styles, description, label } = req.body
+    const { username,
+        email,
+        password,
+        instagram,
+        spotify,
+        soundcloud,
+        twitter,
+        phoneNumber,
+        avatar,
+        image1,
+        image2,
+        image3,
+        image4,
+        role,
+        style1,
+        style2,
+        style3,
+        description,
+        label } = req.body
 
     if (password.length < 2) {
         res.status(400).json({ message: 'Password must have at least 3 characters' })
@@ -63,7 +114,21 @@ router.post('/register/artist', (req, res, next) => {
             const hashedPassword = bcrypt.hashSync(password, salt)
 
             return Artist.create({
-                email, password: hashedPassword, username, networks: { instagram, spotify, soundcloud, twitter }, phoneNumber, images: { avatar, others }, role, styles, description, label
+                username,
+                email,
+                password: hashedPassword,
+                networks:
+                    { instagram, twitter, spotify, soundcloud, bandcamp },
+                phoneNumber,
+                style1,
+                style2,
+                style3,
+                avatar,
+                images:
+                    { image1, image2, image3, image4 },
+                role: 'Venue',
+                label,
+                description,
             })
         })
         .then((createdArtist) => {
@@ -86,7 +151,13 @@ router.post('/register/artist', (req, res, next) => {
 // 3. Fan
 router.post('/register/fan', (req, res, next) => {
 
-    const { username, email, password, phoneNumber, avatar, others, likedEvents, likedArtists, likedVenues } = req.body
+    const { username,
+        email,
+        password,
+        avatar,
+        likedEvents,
+        likedArtists,
+        likedVenues } = req.body
 
     console.log(req.body)
 
@@ -107,7 +178,16 @@ router.post('/register/fan', (req, res, next) => {
             const salt = bcrypt.genSaltSync(saltRounds)
             const hashedPassword = bcrypt.hashSync(password, salt)
 
-            return Fan.create({ email, password: hashedPassword, username, phoneNumber, images: { avatar, others }, likedEvents, likedArtists, likedVenues })
+            return Fan.create({
+                email,
+                password: hashedPassword,
+                username,
+                phoneNumber,
+                avatar,
+                likedEvents,
+                likedArtists,
+                likedVenues
+            })
         })
         .then((createdFan) => { res.status(201).json({ createdFan }) })
         .catch(err => {
@@ -120,7 +200,16 @@ router.post('/register/fan', (req, res, next) => {
 // 4. Label
 router.post('/register/label', (req, res, next) => {
 
-    const { username, email, password, instagram, spotify, soundcloud, twitter, phoneNumber, avatar, others, role, duty, description } = req.body
+    const { username,
+        email,
+        password,
+        instagram,
+        twitter,
+        phoneNumber,
+        avatar,
+        role,
+        duty,
+        description } = req.body
 
     if (password.length < 2) {
         res.status(400).json({ message: 'Password must have at least 3 characters' })
@@ -139,7 +228,18 @@ router.post('/register/label', (req, res, next) => {
             const salt = bcrypt.genSaltSync(saltRounds)
             const hashedPassword = bcrypt.hashSync(password, salt)
 
-            return Label.create({ email, password: hashedPassword, username, networks: { instagram, spotify, soundcloud, twitter }, phoneNumber, images: { avatar, others }, role, duty, description })
+            return Label.create({
+                email,
+                password: hashedPassword,
+                username,
+                networks:
+                    { instagram, twitter },
+                phoneNumber,
+                avatar,
+                role,
+                duty,
+                description
+            })
         })
         .then((createdLabel) => {
 

@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 })
 
 router.post('/create', (req, res) => {
-    const { title, date, mainArtist, secondaryArtists, venue, aprovedArtist, aprovedVenue, creator } = req.body
+    const { title, date, mainArtist, supportingArtists, venue, aprovedArtist, aprovedVenue, creator } = req.body
 
     Event
         .create({ title, date, mainArtist, secondaryArtists, venue, isAproved: { mainArtist: aprovedArtist, venue: aprovedVenue }, creator })

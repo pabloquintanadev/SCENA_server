@@ -15,21 +15,27 @@ const artistSchema = new Schema(
             instagram: { type: String },
             spotify: { type: String },
             soundcloud: { type: String },
+            bandcamp: { type: String },
             twitter: { type: String }
         },
         phoneNumber: String,
+        avatar: {
+            type: String,
+            default: './../img/defaultImg.png'
+        },
         images: {
-            avatar: {
-                type: String,
-                default: './../img/defaultImg.png'
-            },
-            others: [String]
+            image1: { type: String },
+            image2: { type: String },
+            image3: { type: String },
+            image4: { type: String },
         },
         role: {
             type: String,
-            enum: ['Attendant', 'Artist', 'Venue', 'Event', 'Label']
+            default: 'Artist'
         },
-        styles: [String],
+        style1: { type: String },
+        style2: { type: String },
+        style3: { type: String },
         description: {
             type: String,
             required: [true, 'Cuéntanos algo sobre ti']

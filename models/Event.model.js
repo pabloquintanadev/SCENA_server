@@ -4,12 +4,13 @@ const eventSchema = new Schema(
     {
         title: String,
         date: Date,
+        image: String,
         mainArtist:
         {
             type: Schema.Types.ObjectId,
             ref: 'Artist'
         },
-        secondaryArtists:
+        supportingArtists:
             [{
                 type: Schema.Types.ObjectId,
                 ref: 'Artist'

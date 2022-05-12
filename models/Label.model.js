@@ -13,17 +13,12 @@ const labelSchema = new Schema(
         password: String,
         networks: {
             instagram: { type: String },
-            spotify: { type: String },
-            soundcloud: { type: String },
             twitter: { type: String }
         },
         phoneNumber: String,
-        images: {
-            avatar: {
-                type: String,
-                default: './../img/defaultImg.png'
-            },
-            others: [String]
+        avatar: {
+            type: String,
+            default: './../img/defaultImg.png'
         },
         role: {
             type: String,
