@@ -76,6 +76,8 @@ router.post('/register/venue', (req, res, next) => {
 // 2. Artist
 router.post('/register/artist', (req, res, next) => {
 
+    console.log('------SERVER', req.body)
+
     const { username,
         email,
         password,
@@ -83,13 +85,13 @@ router.post('/register/artist', (req, res, next) => {
         spotify,
         soundcloud,
         twitter,
+        bandcamp,
         phoneNumber,
         avatar,
         image1,
         image2,
         image3,
         image4,
-        role,
         style1,
         style2,
         style3,
