@@ -161,7 +161,6 @@ router.post('/register/fan', (req, res, next) => {
         likedArtists,
         likedVenues } = req.body
 
-    console.log(req.body)
 
     if (password.length < 2) {
         res.status(400).json({ message: 'Password must have at least 3 characters' })
@@ -184,7 +183,6 @@ router.post('/register/fan', (req, res, next) => {
                 email,
                 password: hashedPassword,
                 username,
-                phoneNumber,
                 avatar,
                 likedEvents,
                 likedArtists,
@@ -243,14 +241,7 @@ router.post('/register/label', (req, res, next) => {
                 description
             })
         })
-        .then((createdLabel) => {
-
-            console.log('----', createdLabel)
-            const { email, password: hashedPassword, username, networks: { instagram, spotify, soundcloud, twitter }, phoneNumber, images: { avatar, others }, role, duty, description } = createdLabel
-            const user = { username, password, email, networks: { instagram, spotify, soundcloud, twitter }, phoneNumber, images: { avatar, others }, role, duty, description }
-
-            res.status(201).json({ user })
-        })
+        .then((createdLabel) => res.status(201).json(createdLabel ))
         .catch(err => {
             console.log(err)
             res.status(500).json({ message: "Internal Server Error" })
@@ -263,7 +254,7 @@ router.post('/register/label', (req, res, next) => {
 // 1. Venue
 router.post('/login/venue', (req, res, next) => {
     const { email, password } = req.body
-
+        
     if (email === '' || password === '') {
         res.status(400).json({ message: "Provide email and password." })
         return
@@ -302,6 +293,7 @@ router.post('/login/venue', (req, res, next) => {
 router.post('/login/artist', (req, res, next) => {
 
     const { email, password } = req.body
+
 
     if (email === '' || password === '') {
         res.status(400).json({ message: "Provide email and password." });
@@ -346,8 +338,6 @@ router.post('/login/artist', (req, res, next) => {
 router.post('/login/fan', (req, res, next) => {
 
     const { email, password } = req.body
-
-    console.log('---email----- ', email, '------password------- ', password)
 
     if (email === '' || password === '') {
         res.status(400).json({ message: "Provide email and password." });
