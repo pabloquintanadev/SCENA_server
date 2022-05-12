@@ -86,7 +86,9 @@ router.post('/register/artist', (req, res, next) => {
 // 3. Fan
 router.post('/register/fan', (req, res, next) => {
 
-    const { username, email, password, instagram, spotify, soundcloud, twitter, phoneNumber, avatar, others, role, likedEvents, likedArtists, likedVenues } = req.body
+    const { username, email, password, phoneNumber, avatar, others, likedEvents, likedArtists, likedVenues } = req.body
+
+    console.log(req.body)
 
     if (password.length < 2) {
         res.status(400).json({ message: 'Password must have at least 3 characters' })
@@ -105,18 +107,9 @@ router.post('/register/fan', (req, res, next) => {
             const salt = bcrypt.genSaltSync(saltRounds)
             const hashedPassword = bcrypt.hashSync(password, salt)
 
-            return Fan.create({ email, password: hashedPassword, username, networks: { instagram, spotify, soundcloud, twitter }, phoneNumber, images: { avatar, others }, role, likedEvents, likedArtists, likedVenues })
+            return Fan.create({ email, password: hashedPassword, username, phoneNumber, images: { avatar, others }, likedEvents, likedArtists, likedVenues })
         })
-        .then((createdFan) => {
-
-            console.log('----', createdFan)
-            const { username, email, password, networks: { instagram, spotify, soundcloud, twitter }, phoneNumber, images: { avatar, others }, role, styles, description, label } = createdFan
-            const user = {
-                username, email, password, networks: { instagram, spotify, soundcloud, twitter }, phoneNumber, images: { avatar, others }, role, styles, description, label
-            }
-
-            res.status(201).json({ user })
-        })
+        .then((createdFan) => { res.status(201).json({ createdFan }) })
         .catch(err => {
             console.log(err)
             res.status(500).json({ message: "Internal Server Error" })
@@ -127,7 +120,6 @@ router.post('/register/fan', (req, res, next) => {
 // 4. Label
 router.post('/register/label', (req, res, next) => {
 
-    console.log('HE ENTRADO AQUI')
     const { username, email, password, instagram, spotify, soundcloud, twitter, phoneNumber, avatar, others, role, duty, description } = req.body
 
     if (password.length < 2) {
@@ -252,6 +244,8 @@ router.post('/login/artist', (req, res, next) => {
 router.post('/login/fan', (req, res, next) => {
 
     const { email, password } = req.body
+
+    console.log('---email----- ', email, '------password------- ', password)
 
     if (email === '' || password === '') {
         res.status(400).json({ message: "Provide email and password." });
