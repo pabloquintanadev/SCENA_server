@@ -2,6 +2,8 @@ const router = require("express").Router()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const saltRounds = 10
+const { isAuthenticated } = require("../middlewares/jwt.middleware")
+
 
 const Venue = require('./../models/Venue.model')
 const Artist = require('./../models/Artist.model')
@@ -61,7 +63,6 @@ router.post('/register/venue', (req, res, next) => {
                 avatar,
                 images:
                     { image1, image2, image3, image4 },
-                role: 'Venue',
                 description,
                 address:
                     { street, number, postalCode, city },
@@ -128,7 +129,6 @@ router.post('/register/artist', (req, res, next) => {
                 avatar,
                 images:
                     { image1, image2, image3, image4 },
-                role: 'Venue',
                 label,
                 description,
             })
@@ -136,9 +136,9 @@ router.post('/register/artist', (req, res, next) => {
         .then((createdArtist) => {
 
             console.log('----', createdArtist)
-            const { username, email, password, networks: { instagram, spotify, soundcloud, twitter }, phoneNumber, images: { avatar, others }, role, styles, description, label } = createdArtist
+            const { username, email, password, networks: { instagram, spotify, soundcloud, twitter }, phoneNumber, images: { avatar, others }, styles, description, label } = createdArtist
             const user = {
-                username, email, password, networks: { instagram, spotify, soundcloud, twitter }, phoneNumber, images: { avatar, others }, role, styles, description, label
+                username, email, password, networks: { instagram, spotify, soundcloud, twitter }, phoneNumber, images: { avatar, others }, styles, description, label
             }
 
             res.status(201).json({ user })
@@ -207,7 +207,6 @@ router.post('/register/label', (req, res, next) => {
         twitter,
         phoneNumber,
         avatar,
-        role,
         duty,
         description } = req.body
 
@@ -236,12 +235,11 @@ router.post('/register/label', (req, res, next) => {
                     { instagram, twitter },
                 phoneNumber,
                 avatar,
-                role,
                 duty,
                 description
             })
         })
-        .then((createdLabel) => res.status(201).json(createdLabel ))
+        .then((createdLabel) => res.status(201).json(createdLabel))
         .catch(err => {
             console.log(err)
             res.status(500).json({ message: "Internal Server Error" })
@@ -254,7 +252,7 @@ router.post('/register/label', (req, res, next) => {
 // 1. Venue
 router.post('/login/venue', (req, res, next) => {
     const { email, password } = req.body
-        
+
     if (email === '' || password === '') {
         res.status(400).json({ message: "Provide email and password." })
         return
@@ -339,6 +337,7 @@ router.post('/login/fan', (req, res, next) => {
 
     const { email, password } = req.body
 
+
     if (email === '' || password === '') {
         res.status(400).json({ message: "Provide email and password." });
         return;
@@ -419,6 +418,11 @@ router.post('/login/label', (req, res, next) => {
             console.log(err)
             res.status(500).json({ message: "Internal Server Error" })
         })
+})
+
+
+router.get('/verify', isAuthenticated, (req, res, next) => {
+    res.status(200).json(req.payload)
 })
 
 module.exports = router
