@@ -88,6 +88,7 @@ router.post('/register/artist', (req, res, next) => {
         twitter,
         bandcamp,
         phoneNumber,
+        bandcamp,
         avatar,
         image1,
         image2,
@@ -126,6 +127,7 @@ router.post('/register/artist', (req, res, next) => {
                 style1,
                 style2,
                 style3,
+                bandcamp,
                 avatar,
                 images:
                     { image1, image2, image3, image4 },
@@ -138,7 +140,7 @@ router.post('/register/artist', (req, res, next) => {
             console.log('----', createdArtist)
             const { username, email, password, networks: { instagram, spotify, soundcloud, twitter }, phoneNumber, images: { avatar, others }, styles, description, label } = createdArtist
             const user = {
-                username, email, password, networks: { instagram, spotify, soundcloud, twitter }, phoneNumber, images: { avatar, others }, styles, description, label
+                username, email, password, networks: { instagram, spotify, soundcloud, twitter }, phoneNumber, images: { avatar, others }, role, styles, description, label, bandcamp
             }
 
             res.status(201).json({ user })

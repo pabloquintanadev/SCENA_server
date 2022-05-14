@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
 
 })
 
-router.get('/:fanId', (req, res) => {
+router.get('/details/:fanId', (req, res) => {
 
     const { fanId } = req.params
 
