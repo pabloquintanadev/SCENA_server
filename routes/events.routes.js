@@ -6,7 +6,7 @@ router.get('/', (req, res) => {
 
     Event
         .find()
-        .populate('mainArtist secondaryArtists venue')
+        .populate('mainArtist supportingArtists venue')
         .then(events => res.json(events))
         .catch(err => res.status(500).json(err))
 })
