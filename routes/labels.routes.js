@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 
 })
 
-router.get('/:labelId', (req, res) => {
+router.get('/details/:labelId', (req, res) => {
 
     const { labelId } = req.params
 
