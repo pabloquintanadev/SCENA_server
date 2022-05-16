@@ -17,7 +17,6 @@ router.get('/', (req, res) => {
             res.status(200).json(fans)
         })
         .catch((err) => res.status(500).json(err))
-
 })
 
 router.get('/details/:fanId', (req, res) => {
@@ -33,7 +32,6 @@ router.get('/details/:fanId', (req, res) => {
             res.status(200).json(fan)
         })
         .catch((err) => res.status(500).json(err))
-
 })
 
 router.post('/delete/:id', (req, res) => {
@@ -42,13 +40,20 @@ router.post('/delete/:id', (req, res) => {
 
     Fan
         .findByIdAndDelete(id)
-        .then(() => {
-
-            res.status(200).json('Fan borrado correctamente')
-
-        })
+        .then(() => res.status(200).json('Fan borrado correctamente'))
         .catch((err) => res.status(500).json())
-
 })
+
+router.post('/edit/:id', (req, res) => {
+
+    const { id } = req.params
+    const { username, email, avatar } = req.body
+
+    Fan
+        .findByIdAndUpdate(id, { username, email, avatar })
+        .then(() => res.status(200).json('Fan editado correctamente'))
+        .catch((err) => res.status(500).json())
+})
+
 
 module.exports = router

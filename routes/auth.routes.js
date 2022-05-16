@@ -20,21 +20,16 @@ router.post('/register/venue', (req, res, next) => {
         username,
         email,
         password,
-        instagram,
-        twitter,
+        networks,
         phoneNumber,
         avatar,
-        image1,
-        image2,
-        image3,
-        image4,
+        images,
+        address,
         description,
-        street,
-        number,
-        postalCode,
-        city,
         capacity
     } = req.body
+
+    console.log('-----hello', req.body)
 
     if (password.length < 2) {
         res.status(400).json({ message: 'Password must have at least 3 characters' })
@@ -57,15 +52,12 @@ router.post('/register/venue', (req, res, next) => {
                 username,
                 email,
                 password: hashedPassword,
-                networks:
-                    { instagram, twitter },
+                networks,
                 phoneNumber,
                 avatar,
-                images:
-                    { image1, image2, image3, image4 },
+                images,
                 description,
-                address:
-                    { street, number, postalCode, city },
+                address,
                 capacity
             })
         })
@@ -77,26 +69,17 @@ router.post('/register/venue', (req, res, next) => {
 // 2. Artist
 router.post('/register/artist', (req, res, next) => {
 
-
     const { username,
-        email,
         password,
-        instagram,
-        spotify,
-        soundcloud,
-        twitter,
-        bandcamp,
+        email,
         phoneNumber,
-        avatar,
-        image1,
-        image2,
-        image3,
-        image4,
-        style1,
-        style2,
-        style3,
         description,
-        label } = req.body
+        networks: { instagram, spotify, soundcloud, bandcamp, twitter },
+        styles,
+        avatar,
+        images } = req.body
+    
+    console.log('&&&&&', req.body)
 
     if (password.length < 2) {
         res.status(400).json({ message: 'Password must have at least 3 characters' })
@@ -122,27 +105,13 @@ router.post('/register/artist', (req, res, next) => {
                 networks:
                     { instagram, twitter, spotify, soundcloud, bandcamp },
                 phoneNumber,
-                style1,
-                style2,
-                style3,
-                bandcamp,
+                styles,
                 avatar,
-                images:
-                    { image1, image2, image3, image4 },
-                label,
-                description,
+                images,
+                description
             })
         })
-        .then((createdArtist) => {
-
-            console.log('----', createdArtist)
-            const { username, email, password, networks: { instagram, spotify, soundcloud, twitter }, phoneNumber, images: { avatar, others }, styles, description, label } = createdArtist
-            const user = {
-                username, email, password, networks: { instagram, spotify, soundcloud, twitter }, phoneNumber, images: { avatar, others }, role, styles, description, label, bandcamp
-            }
-
-            res.status(201).json({ user })
-        })
+        .then((createdArtist) => res.status(201).json(createdArtist))
         .catch(err => {
             console.log(err)
             res.status(500).json({ message: "Internal Server Error" })
@@ -157,9 +126,7 @@ router.post('/register/fan', (req, res, next) => {
         email,
         password,
         avatar,
-        likedEvents,
-        likedArtists,
-        likedVenues } = req.body
+    } = req.body
 
     console.log(req.body)
 
@@ -184,11 +151,7 @@ router.post('/register/fan', (req, res, next) => {
                 email,
                 password: hashedPassword,
                 username,
-                phoneNumber,
                 avatar,
-                likedEvents,
-                likedArtists,
-                likedVenues
             })
         })
         .then((createdFan) => { res.status(201).json({ createdFan }) })
@@ -205,12 +168,14 @@ router.post('/register/label', (req, res, next) => {
     const { username,
         email,
         password,
-        instagram,
-        twitter,
+        networks,
         phoneNumber,
         avatar,
         duty,
         description } = req.body
+
+
+    console.log(networks)
 
     if (password.length < 2) {
         res.status(400).json({ message: 'Password must have at least 3 characters' })
@@ -233,8 +198,7 @@ router.post('/register/label', (req, res, next) => {
                 email,
                 password: hashedPassword,
                 username,
-                networks:
-                    { instagram, twitter },
+                networks,
                 phoneNumber,
                 avatar,
                 duty,
@@ -270,8 +234,8 @@ router.post('/login/venue', (req, res, next) => {
             }
 
             if (bcrypt.compareSync(password, foundVenue.password)) {
-                const { _id, email, username } = foundVenue
-                const payload = { _id, email, username }
+                const { _id, email, username, role } = foundVenue
+                const payload = { _id, email, username, role }
 
                 const authToken = jwt.sign(
                     payload,
@@ -310,9 +274,9 @@ router.post('/login/artist', (req, res, next) => {
 
             if (bcrypt.compareSync(password, foundUser.password)) {
 
-                const { _id, email, username } = foundUser
+                const { _id, email, username, role } = foundUser
 
-                const payload = { _id, email, username }
+                const payload = { _id, email, username, role }
 
                 const authToken = jwt.sign(
                     payload,
@@ -340,8 +304,8 @@ router.post('/login/fan', (req, res, next) => {
 
 
     if (email === '' || password === '') {
-        res.status(400).json({ message: "Provide email and password." });
-        return;
+        res.status(400).json({ message: "Provide email and password." })
+        return
     }
 
     Fan
@@ -350,14 +314,14 @@ router.post('/login/fan', (req, res, next) => {
 
             if (!foundUser) {
                 res.status(401).json({ message: "User not found." })
-                return;
+                return
             }
 
             if (bcrypt.compareSync(password, foundUser.password)) {
 
-                const { _id, email, username } = foundUser
+                const { _id, email, username, role } = foundUser
 
-                const payload = { _id, email, username }
+                const payload = { _id, email, username, role }
 
                 const authToken = jwt.sign(
                     payload,
@@ -399,9 +363,9 @@ router.post('/login/label', (req, res, next) => {
 
             if (bcrypt.compareSync(password, foundUser.password)) {
 
-                const { _id, email, username } = foundUser
+                const { _id, email, username, role } = foundUser
 
-                const payload = { _id, email, username }
+                const payload = { _id, email, username, role }
 
                 const authToken = jwt.sign(
                     payload,

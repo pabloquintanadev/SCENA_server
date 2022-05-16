@@ -52,11 +52,13 @@ router.get('/search/style/:style', (req, res) => {
     const { style } = req.params
 
     Artist
-        .find({$or: [
-            { 'style1': style },
-            { 'style2': style },
-            { 'style3': style }
-        ]})
+        .find({
+            $or: [
+                { 'style1': style },
+                { 'style2': style },
+                { 'style3': style }
+            ]
+        })
         .populate('label')
         .then((artist) => {
             res.status(200).json(artist)
@@ -76,8 +78,19 @@ router.post('/delete/:id', (req, res) => {
 
         })
         .catch((err) => res.status(500).json())
-
 })
+
+router.post('/edit/:id', (req, res) => {
+
+    const { id } = req.params
+    const { username, email, phoneNumber, description, networks: { instagram, twitter, spotify, soundcloud, bandcamp }, styles, avatar, images } = req.body
+
+    Artist
+        .findByIdAndUpdate(id, { username, email, phoneNumber, description, networks: { instagram, twitter, spotify, soundcloud, bandcamp }, styles, avatar, images })
+        .then(() => res.status(200).json('Fan editado correctamente'))
+        .catch(err => res.status(500).json())
+})
+
 
 module.exports = router;
 

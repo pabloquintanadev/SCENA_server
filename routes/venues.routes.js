@@ -47,28 +47,27 @@ router.post('/delete/:id', (req, res, next) => {
         .catch(err => res.status(500).json(err))
 })
 
-router.post('/edit:id', (req, res, next) => {
+router.post('/edit/:id', (req, res, next) => {
     const { id } = req.params
     const { username,
         email,
-        password,
-        instagram,
-        twitter,
+        networks: { instagram, twitter },
         phoneNumber,
         avatar,
         description,
-        street,
-        number,
-        postalCode,
-        city,
+        address: {
+            street,
+            number,
+            postalCode,
+            city,
+        },
         capacity } = req.body
 
-
     Venue
-        .findByIdAndUpdate(id, { username, email, password: hashedPassword, networks: { instagram, twitter }, phoneNumber, avatar, role: 'Venue', description, address: { street, number, postalCode, city }, capacity })
+        .findByIdAndUpdate(id, { username, email, networks: { instagram, twitter }, phoneNumber, avatar, role: 'Venue', description, address: { street, number, postalCode, city }, capacity })
         .then(() => res.status(200).json({ message: 'Venue edited correctly' }))
         .catch(err => res.status(500).json(err))
-
 })
+
 
 module.exports = router
