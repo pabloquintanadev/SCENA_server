@@ -455,7 +455,7 @@ router.post('/:role/addArtist/:artistId', (req, res, next) => {
 
 //2.FavEvents
 
-router.post('/:role/addEvents/:eventId', (req, res, next) => {
+router.post('/:role/addEvent/:eventId', (req, res, next) => {
 
     const { role, eventId } = req.params
     let event = mongoose.Types.ObjectId(eventId);
