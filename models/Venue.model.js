@@ -37,7 +37,11 @@ const venueSchema = new Schema(
             postalCode: Number,
             city: String
         },
-        capacity: Number
+        capacity: Number,
+        myEvents: {
+            type: Schema.Types.ObjectId,
+            ref: 'Events'
+        }
     },
     {
         timestamps: true,

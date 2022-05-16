@@ -41,7 +41,11 @@ const artistSchema = new Schema(
         label: {
             type: Schema.Types.ObjectId,
             ref: 'Label'
-        }
+        },
+        myEvents: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Events'
+        }]
     },
     {
         timestamps: true,
