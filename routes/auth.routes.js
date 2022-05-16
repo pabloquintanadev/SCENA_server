@@ -3,6 +3,8 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const saltRounds = 10
 const { isAuthenticated } = require("../middlewares/jwt.middleware")
+const mongoose = require('mongoose');
+
 
 
 const Venue = require('./../models/Venue.model')
@@ -78,7 +80,7 @@ router.post('/register/artist', (req, res, next) => {
         styles,
         avatar,
         images } = req.body
-    
+
     console.log('&&&&&', req.body)
 
     if (password.length < 2) {
@@ -389,6 +391,79 @@ router.post('/login/label', (req, res, next) => {
 router.get('/verify', isAuthenticated, (req, res, next) => {
     res.status(200).json(req.payload)
 })
+
+//Save to favorites : Artist,Events, or Venues
+// 1. FavArtist
+
+router.post('/:role/addArtist/:artistId', (req, res, next) => {
+
+    const { role, artistId } = req.params
+    let artist = mongoose.Types.ObjectId(artistId);
+
+    let modelConversion
+
+    if (role === 'Fan') {
+        modelConversion = Fan
+    } else if (role === 'Artist') {
+        modelConversion = Artist
+    } else if (role === 'Venue') {
+        modelConversion = Venue
+    }
+
+    modelConversion
+        .findByIdAndUpdate(req.body.loggedUserId, { $addToSet: { likedArtists: artist } })
+        .then(console.log('hecho!'))
+        .catch(err => console.log(err))
+
+})
+
+//2.FavEvents
+
+router.post('/:role/addEvents/:eventId', (req, res, next) => {
+
+    const { role, eventId } = req.params
+    let event = mongoose.Types.ObjectId(eventId);
+
+    let modelConversion
+
+    if (role === 'Fan') {
+        modelConversion = Fan
+    } else if (role === 'Artist') {
+        modelConversion = Artist
+    } else if (role === 'Venue') {
+        modelConversion = Venue
+    }
+
+    modelConversion
+        .findByIdAndUpdate(req.body.loggedUserId, { $addToSet: { likedEvents: event } })
+        .then(console.log('hecho!'))
+        .catch(err => console.log(err))
+
+})
+
+//3.FavVenues
+
+router.post('/:role/addVenue/:venueId', (req, res, next) => {
+
+    const { role, venueId } = req.params
+    let venue = mongoose.Types.ObjectId(venueId);
+    let modelConversion
+
+    if (role === 'Fan') {
+        modelConversion = Fan
+    } else if (role === 'Artist') {
+        modelConversion = Artist
+    } else if (role === 'Venue') {
+        modelConversion = Venue
+    }
+
+    modelConversion
+        .findByIdAndUpdate(req.body.loggedUserId, { $addToSet: { likedVenues: venue } })
+        .catch(err => console.log(err))
+
+})
+
+
 
 module.exports = router
 

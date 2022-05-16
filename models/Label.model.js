@@ -25,10 +25,28 @@ const labelSchema = new Schema(
             default: 'Label'
         },
         description: String,
-        duty:{
+        duty: {
             type: String,
             enum: ['RecordLabel', 'Management']
-        }
+        },
+        representedArtists:
+            [{
+                type: Schema.Types.ObjectId,
+                ref: 'Artist'
+            }],
+        likedEvents: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Event'
+        }],
+        likedArtists: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Artist'
+        }],
+        likedVenues: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Venue'
+        }]
+
     },
     {
         timestamps: true,

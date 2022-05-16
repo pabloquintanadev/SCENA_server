@@ -37,7 +37,19 @@ const venueSchema = new Schema(
             postalCode: Number,
             city: String
         },
-        capacity: Number
+        capacity: Number,
+        likedEvents: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Event'
+        }],
+        likedArtists: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Artist'
+        }],
+        likedVenues: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Venue'
+        }]
     },
     {
         timestamps: true,
