@@ -49,7 +49,11 @@ const venueSchema = new Schema(
         likedVenues: [{
             type: Schema.Types.ObjectId,
             ref: 'Venue'
-        }]
+        }],
+        myEvents: {
+            type: Schema.Types.ObjectId,
+            ref: 'Events'
+        }
     },
     {
         timestamps: true,

@@ -33,9 +33,7 @@ const artistSchema = new Schema(
             type: String,
             default: 'Artist'
         },
-        style1: { type: String },
-        style2: { type: String },
-        style3: { type: String },
+        styles: [String],
         description: {
             type: String,
             required: [true, 'Cuéntanos algo sobre ti']
@@ -55,6 +53,10 @@ const artistSchema = new Schema(
         likedVenues: [{
             type: Schema.Types.ObjectId,
             ref: 'Venue'
+        }],
+        myEvents: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Events'
         }]
     },
     {

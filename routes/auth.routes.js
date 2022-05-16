@@ -31,8 +31,6 @@ router.post('/register/venue', (req, res, next) => {
         capacity
     } = req.body
 
-    console.log('-----hello', req.body)
-
     if (password.length < 2) {
         res.status(400).json({ message: 'Password must have at least 3 characters' })
         return
@@ -63,7 +61,17 @@ router.post('/register/venue', (req, res, next) => {
                 capacity
             })
         })
-        .then(createdVenue => { res.status(200).json(createdVenue) })
+        .then(createdVenue => {
+            const { _id, email, username, role } = createdVenue
+            const payload = { _id, email, username, role }
+
+            const authToken = jwt.sign(
+                payload,
+                process.env.TOKEN_SECRET,
+                { algorithm: 'HS256', expiresIn: "6h" }
+            )
+            res.status(200).json({ authToken })
+        })
         .catch(err => res.status(500).json(err))
 })
 
@@ -80,8 +88,6 @@ router.post('/register/artist', (req, res, next) => {
         styles,
         avatar,
         images } = req.body
-
-    console.log('&&&&&', req.body)
 
     if (password.length < 2) {
         res.status(400).json({ message: 'Password must have at least 3 characters' })
@@ -113,7 +119,17 @@ router.post('/register/artist', (req, res, next) => {
                 description
             })
         })
-        .then((createdArtist) => res.status(201).json(createdArtist))
+        .then(createdArtist => {
+            const { _id, email, username, role } = createdArtist
+            const payload = { _id, email, username, role }
+
+            const authToken = jwt.sign(
+                payload,
+                process.env.TOKEN_SECRET,
+                { algorithm: 'HS256', expiresIn: "6h" }
+            )
+            res.status(200).json({ authToken })
+        })
         .catch(err => {
             console.log(err)
             res.status(500).json({ message: "Internal Server Error" })
@@ -129,8 +145,6 @@ router.post('/register/fan', (req, res, next) => {
         password,
         avatar,
     } = req.body
-
-    console.log(req.body)
 
     if (password.length < 2) {
         res.status(400).json({ message: 'Password must have at least 3 characters' })
@@ -156,7 +170,19 @@ router.post('/register/fan', (req, res, next) => {
                 avatar,
             })
         })
-        .then((createdFan) => { res.status(201).json({ createdFan }) })
+        .then((createdFan) => {
+
+            console.log('88888888888888888', createdFan)
+            const { _id, email, username, role } = createdFan
+            const payload = { _id, email, username, role }
+
+            const authToken = jwt.sign(
+                payload,
+                process.env.TOKEN_SECRET,
+                { algorithm: 'HS256', expiresIn: "6h" }
+            )
+            res.status(200).json({ authToken })
+        })
         .catch(err => {
             console.log(err)
             res.status(500).json({ message: "Internal Server Error" })
@@ -175,10 +201,7 @@ router.post('/register/label', (req, res, next) => {
         avatar,
         duty,
         description } = req.body
-
-
-    console.log(networks)
-
+    
     if (password.length < 2) {
         res.status(400).json({ message: 'Password must have at least 3 characters' })
         return1
@@ -187,6 +210,8 @@ router.post('/register/label', (req, res, next) => {
     Label
         .findOne({ email })
         .then((foundLabel) => {
+
+            console.log('******', foundLabel)
 
             if (foundLabel) {
                 res.status(400).json({ message: "Label already exists." })
@@ -207,7 +232,18 @@ router.post('/register/label', (req, res, next) => {
                 description
             })
         })
-        .then((createdLabel) => res.status(201).json(createdLabel))
+        .then((createdLabel) => {
+            console.log(createdLabel)
+            const { _id, email, username, role } = createdLabel
+            const payload = { _id, email, username, role }
+
+            const authToken = jwt.sign(
+                payload,
+                process.env.TOKEN_SECRET,
+                { algorithm: 'HS256', expiresIn: "6h" }
+            )
+            res.status(200).json({ authToken })
+        })
         .catch(err => {
             console.log(err)
             res.status(500).json({ message: "Internal Server Error" })
