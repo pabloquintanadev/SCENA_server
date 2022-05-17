@@ -22,6 +22,9 @@ router.use('/venues', require('./venues.routes'))
 //labels routes
 router.use('/labels', require('./labels.routes'))
 
+//messages routes
+router.use('/messages', require('./messages.routes'))
+
 //auth routes
 router.use('/auth', require('./auth.routes'))
 
