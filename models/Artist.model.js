@@ -56,7 +56,7 @@ const artistSchema = new Schema(
         }],
         myEvents: [{
             type: Schema.Types.ObjectId,
-            ref: 'Events'
+            ref: 'Event'
         }]
     },
     {
