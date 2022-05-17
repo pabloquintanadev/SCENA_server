@@ -443,6 +443,28 @@ router.post('/:role/addArtist/:artistId', (req, res, next) => {
 
 })
 
+router.post('/:role/deleteArtist/:artistId', (req, res, next) => {
+
+
+    const { role, artistId } = req.params
+    let artist = mongoose.Types.ObjectId(artistId);
+
+    let modelConversion
+
+    if (role === 'Fan') {
+        modelConversion = Fan
+    } else if (role === 'Artist') {
+        modelConversion = Artist
+    } else if (role === 'Venue') {
+        modelConversion = Venue
+    }
+    modelConversion
+        .findByIdAndUpdate(req.body.loggedUserId, { $pull: { likedArtists: artistId } })
+        .then(console.log('Artista borrado'))
+        .catch(err => console.log(err))
+
+})
+
 //2.FavEvents
 
 router.post('/:role/addEvent/:eventId', (req, res, next) => {
@@ -463,6 +485,27 @@ router.post('/:role/addEvent/:eventId', (req, res, next) => {
     modelConversion
         .findByIdAndUpdate(req.body.loggedUserId, { $addToSet: { likedEvents: event } })
         .then(console.log('hecho!'))
+        .catch(err => console.log(err))
+
+})
+
+router.post('/:role/deleteEvent/:eventId', (req, res, next) => {
+
+
+    const { role, eventId } = req.params
+
+    let modelConversion
+
+    if (role === 'Fan') {
+        modelConversion = Fan
+    } else if (role === 'Artist') {
+        modelConversion = Artist
+    } else if (role === 'Venue') {
+        modelConversion = Venue
+    }
+    modelConversion
+        .findByIdAndUpdate(req.body.loggedUserId, { $pull: { likedEvents: eventId } })
+        .then(console.log('Evento borrado'))
         .catch(err => console.log(err))
 
 })
@@ -489,14 +532,31 @@ router.post('/:role/addVenue/:venueId', (req, res, next) => {
 
 })
 
+router.post('/:role/deleteVenue/:venueId', (req, res, next) => {
+
+
+    const { role, venueId } = req.params
+
+    let modelConversion
+
+    if (role === 'Fan') {
+        modelConversion = Fan
+    } else if (role === 'Artist') {
+        modelConversion = Artist
+    } else if (role === 'Venue') {
+        modelConversion = Venue
+    }
+    modelConversion
+        .findByIdAndUpdate(req.body.loggedUserId, { $pull: { likedVenues: venueId } })
+        .then(console.log('Evento borrado'))
+        .catch(err => console.log(err))
+
+})
 
 router.post('/:role/checkArtist/:artistId', (req, res, next) => {
 
     const { role, artistId } = req.params
-    let artist = mongoose.Types.ObjectId(artistId);
     let modelConversion
-
-
 
     if (role === 'Fan') {
         modelConversion = Fan
@@ -510,7 +570,7 @@ router.post('/:role/checkArtist/:artistId', (req, res, next) => {
         .then((user) => {
             let result =
                 user.likedArtists.map((elem) => {
-                    if (elem === artistId) {
+                    if (elem.toString() == artistId) {
                         return true
                     }
                     else {
@@ -520,12 +580,89 @@ router.post('/:role/checkArtist/:artistId', (req, res, next) => {
             return result
         })
         .then((result) => {
-            res.json(result.includes(true))
+            if (result.includes(true)) {
+                res.json(true)
+            } else {
+                res.json(false)
+            }
+
         })
         .catch(err => console.log(err))
 })
 
+router.post('/:role/checkVenue/:venueId', (req, res, next) => {
 
+    const { role, venueId } = req.params
+    let modelConversion
+
+    if (role === 'Fan') {
+        modelConversion = Fan
+    } else if (role === 'Artist') {
+        modelConversion = Artist
+    } else if (role === 'Venue') {
+        modelConversion = Venue
+    }
+    modelConversion
+        .findById(req.body.loggedUserId)
+        .then((user) => {
+            let result =
+                user.likedVenues.map((elem) => {
+                    if (elem.toString() == venueId) {
+                        return true
+                    }
+                    else {
+                        return false
+                    }
+                })
+            return result
+        })
+        .then((result) => {
+            if (result.includes(true)) {
+                res.json(true)
+            } else {
+                res.json(false)
+            }
+
+        })
+        .catch(err => console.log(err))
+})
+
+router.post('/:role/checkEvent/:eventId', (req, res, next) => {
+
+    const { role, eventId } = req.params
+    let modelConversion
+
+    if (role === 'Fan') {
+        modelConversion = Fan
+    } else if (role === 'Artist') {
+        modelConversion = Artist
+    } else if (role === 'Venue') {
+        modelConversion = Venue
+    }
+    modelConversion
+        .findById(req.body.loggedUserId)
+        .then((user) => {
+            let result =
+                user.likedEvents.map((elem) => {
+                    if (elem.toString() == eventId) {
+                        return true
+                    }
+                    else {
+                        return false
+                    }
+                })
+            return result
+        })
+        .then((result) => {
+            if (result.includes(true)) {
+                res.json(true)
+            } else {
+                res.json(false)
+            }
+
+        })
+        .catch(err => console.log(err))
+})
 
 module.exports = router
 
