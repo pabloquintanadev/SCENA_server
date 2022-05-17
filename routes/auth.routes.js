@@ -197,7 +197,7 @@ router.post('/register/label', (req, res, next) => {
         avatar,
         duty,
         description } = req.body
-    
+
     if (password.length < 2) {
         res.status(400).json({ message: 'Password must have at least 3 characters' })
         return1
@@ -487,6 +487,42 @@ router.post('/:role/addVenue/:venueId', (req, res, next) => {
         .findByIdAndUpdate(req.body.loggedUserId, { $addToSet: { likedVenues: venue } })
         .catch(err => console.log(err))
 
+})
+
+
+router.post('/:role/checkArtist/:artistId', (req, res, next) => {
+
+    const { role, artistId } = req.params
+    let artist = mongoose.Types.ObjectId(artistId);
+    let modelConversion
+
+
+
+    if (role === 'Fan') {
+        modelConversion = Fan
+    } else if (role === 'Artist') {
+        modelConversion = Artist
+    } else if (role === 'Venue') {
+        modelConversion = Venue
+    }
+    modelConversion
+        .findById(req.body.loggedUserId)
+        .then((user) => {
+            let result =
+                user.likedArtists.map((elem) => {
+                    if (elem === artistId) {
+                        return true
+                    }
+                    else {
+                        return false
+                    }
+                })
+            return result
+        })
+        .then((result) => {
+            res.json(result.includes(true))
+        })
+        .catch(err => console.log(err))
 })
 
 
