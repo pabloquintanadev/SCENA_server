@@ -24,12 +24,14 @@ router.post('/create', (req, res, next) => {
 
             const promises = [
                 Artist.findByIdAndUpdate(createdEvent.mainArtist._id, { $push: { myEvents: createdEvent._id } }),
-                Venue.findByIdAndUpdate(createdEvent.venue._id, { $push: { myEvents: createdEvent._id } }),
+                Venue.findByIdAndUpdate(createdEvent.venue._id, { $push: { myEvents: createdEvent._id } })
             ]
 
             Promise
                 .all(promises)
-                .then(([updatedArtist, updatedVenue]) => next())
+                .then(([updatedArtist, updatedVenue]) => {
+                    console.log()
+                })
                 .catch(err => next(err))
 
             createdEvent.supportingArtists.map(element => {
@@ -39,7 +41,7 @@ router.post('/create', (req, res, next) => {
                     .catch(err => next(err))
             })
         })
-        .then(()=> res.json())
+        .then(() => res.json())
         .catch(err => console.log(err))
 })
 
