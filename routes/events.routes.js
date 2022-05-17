@@ -44,6 +44,7 @@ router.post('/create', (req, res, next) => {
 })
 
 router.get('/:id', (req, res) => {
+
     const { id } = req.params
 
     Event
@@ -54,6 +55,7 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/:id/delete', (req, res) => {
+
     const { id } = req.params
 
     Event
@@ -63,12 +65,12 @@ router.post('/:id/delete', (req, res) => {
 })
 
 router.post('/:id/edit', (req, res) => {
+
     const { id } = req.params
-    const { title, date, image, mainArtist, supportingArtists, venue, isAproved: { mainArtistCheck: aprovedArtist, venueCheck: aprovedVenue }, creator, description } = req.body
 
     Event
-        .findByIdAndUpdate(id, { title, date, image, mainArtist, supportingArtists, venue, isAproved: { mainArtist: aprovedArtist, venue: aprovedVenue }, creator, description })
-        .then(() => res.json(response))
+        .findByIdAndUpdate(id, req.body)
+        .then((response) => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
