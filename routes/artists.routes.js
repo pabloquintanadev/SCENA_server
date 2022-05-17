@@ -23,14 +23,13 @@ router.get('/', (req, res) => {
 router.get('/details/:artistId', (req, res) => {
 
     const { artistId } = req.params
+    const _id = artistId
 
     Artist
         .findById(artistId)
-        .populate('label')
-        .then((artist) => {
-            res.status(200).json(artist)
-        })
-        .catch((err) => res.status(500).json(err))
+        .populate('myEvents')
+        .then((artist) => res.status(200).json(artist))
+        .catch((err) => console.log(err))
 })
 
 router.get('/search/:username', (req, res) => {
@@ -41,7 +40,6 @@ router.get('/search/:username', (req, res) => {
         .find({ username })
         .populate('label')
         .then((artist) => {
-            console.log(artist)
             res.status(200).json({ artist })
         })
         .catch((err) => res.status(500).json(err))
