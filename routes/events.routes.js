@@ -64,7 +64,7 @@ router.post('/:id/delete', (req, res) => {
 
 router.post('/:id/edit', (req, res) => {
     const { id } = req.params
-    const { title, date, image, mainArtist, supportingArtists, venue, isAproved: { mainArtist: aprovedArtist, venue: aprovedVenue }, creator, description } = req.body
+    const { title, date, image, mainArtist, supportingArtists, venue, isAproved: { mainArtistCheck: aprovedArtist, venueCheck: aprovedVenue }, creator, description } = req.body
 
     Event
         .findByIdAndUpdate(id, { title, date, image, mainArtist, supportingArtists, venue, isAproved: { mainArtist: aprovedArtist, venue: aprovedVenue }, creator, description })
