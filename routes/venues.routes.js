@@ -18,7 +18,10 @@ router.get('/:venueId', (req, res) => {
 
     Venue
         .findById(venueId)
-        .then(venue => res.json(venue))
+        .then(venue => {
+            console.log('estoy en serveeeeeeeeeerrrrrr<<<<<<<<', venue)
+            res.json(venue)
+        })
         .catch(err => res.status(500).json(err))
 })
 
