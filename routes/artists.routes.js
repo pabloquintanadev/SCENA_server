@@ -41,7 +41,6 @@ router.get('/search/:username', (req, res) => {
         .find({ username })
         .populate('label')
         .then((artist) => {
-            console.log(artist)
             res.status(200).json({ artist })
         })
         .catch((err) => res.status(500).json(err))

@@ -131,7 +131,6 @@ router.post('/register/artist', (req, res, next) => {
             res.status(200).json({ authToken })
         })
         .catch(err => {
-            console.log(err)
             res.status(500).json({ message: "Internal Server Error" })
         })
 })
@@ -171,8 +170,6 @@ router.post('/register/fan', (req, res, next) => {
             })
         })
         .then((createdFan) => {
-
-            console.log('88888888888888888', createdFan)
             const { _id, email, username, role } = createdFan
             const payload = { _id, email, username, role }
 
@@ -184,7 +181,6 @@ router.post('/register/fan', (req, res, next) => {
             res.status(200).json({ authToken })
         })
         .catch(err => {
-            console.log(err)
             res.status(500).json({ message: "Internal Server Error" })
         })
 })
@@ -211,7 +207,6 @@ router.post('/register/label', (req, res, next) => {
         .findOne({ email })
         .then((foundLabel) => {
 
-            console.log('******', foundLabel)
 
             if (foundLabel) {
                 res.status(400).json({ message: "Label already exists." })
@@ -233,7 +228,6 @@ router.post('/register/label', (req, res, next) => {
             })
         })
         .then((createdLabel) => {
-            console.log(createdLabel)
             const { _id, email, username, role } = createdLabel
             const payload = { _id, email, username, role }
 
@@ -245,7 +239,6 @@ router.post('/register/label', (req, res, next) => {
             res.status(200).json({ authToken })
         })
         .catch(err => {
-            console.log(err)
             res.status(500).json({ message: "Internal Server Error" })
         })
 })
@@ -329,7 +322,6 @@ router.post('/login/artist', (req, res, next) => {
             }
         })
         .catch(err => {
-            console.log(err)
             res.status(500).json({ message: "Internal Server Error" })
         })
 })
@@ -374,7 +366,6 @@ router.post('/login/fan', (req, res, next) => {
             }
         })
         .catch(err => {
-            console.log(err)
             res.status(500).json({ message: "Internal Server Error" })
         })
 })
@@ -418,7 +409,6 @@ router.post('/login/label', (req, res, next) => {
             }
         })
         .catch(err => {
-            console.log(err)
             res.status(500).json({ message: "Internal Server Error" })
         })
 })
