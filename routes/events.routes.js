@@ -71,7 +71,7 @@ router.post('/:id/edit', (req, res) => {
     const { id } = req.params
 
     Event
-        .findByIdAndUpdate(id, req.body)
+        .findByIdAndUpdate(id, req.body, {new: true})
         .then((response) => res.json(response))
         .catch(err => res.status(500).json(err))
 })
