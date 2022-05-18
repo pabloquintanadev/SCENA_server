@@ -24,12 +24,14 @@ router.post('/create', (req, res, next) => {
 
             const promises = [
                 Artist.findByIdAndUpdate(createdEvent.mainArtist._id, { $push: { myEvents: createdEvent._id } }),
-                Venue.findByIdAndUpdate(createdEvent.venue._id, { $push: { myEvents: createdEvent._id } }),
+                Venue.findByIdAndUpdate(createdEvent.venue._id, { $push: { myEvents: createdEvent._id } })
             ]
 
             Promise
                 .all(promises)
-                .then(([updatedArtist, updatedVenue]) => next())
+                .then(([updatedArtist, updatedVenue]) => {
+                    console.log()
+                })
                 .catch(err => next(err))
 
             createdEvent.supportingArtists.map(element => {
@@ -39,11 +41,12 @@ router.post('/create', (req, res, next) => {
                     .catch(err => next(err))
             })
         })
-        .then(()=> res.json())
+        .then(() => res.json())
         .catch(err => console.log(err))
 })
 
 router.get('/:id', (req, res) => {
+
     const { id } = req.params
 
     Event
@@ -54,6 +57,7 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/:id/delete', (req, res) => {
+
     const { id } = req.params
 
     Event
@@ -63,12 +67,12 @@ router.post('/:id/delete', (req, res) => {
 })
 
 router.post('/:id/edit', (req, res) => {
+
     const { id } = req.params
-    const { title, date, image, mainArtist, supportingArtists, venue, isAproved: { mainArtistCheck: aprovedArtist, venueCheck: aprovedVenue }, creator, description } = req.body
 
     Event
-        .findByIdAndUpdate(id, { title, date, image, mainArtist, supportingArtists, venue, isAproved: { mainArtist: aprovedArtist, venue: aprovedVenue }, creator, description })
-        .then(() => res.json(response))
+        .findByIdAndUpdate(id, req.body)
+        .then((response) => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 

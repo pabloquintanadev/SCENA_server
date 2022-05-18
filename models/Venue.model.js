@@ -50,10 +50,10 @@ const venueSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'Venue'
         }],
-        myEvents: {
+        myEvents: [{
             type: Schema.Types.ObjectId,
-            ref: 'Events'
-        }
+            ref: 'Event'
+        }]
     },
     {
         timestamps: true,
