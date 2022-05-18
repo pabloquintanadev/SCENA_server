@@ -27,7 +27,7 @@ router.get('/details/:artistId', (req, res) => {
 
     Artist
         .findById(artistId)
-        .populate('myEvents')
+        .populate('likedArtists likedEvents likedVenues myEvents')
         .then((artist) => res.status(200).json(artist))
         .catch((err) => console.log(err))
 })

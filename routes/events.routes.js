@@ -51,7 +51,7 @@ router.get('/:id', (req, res) => {
 
     Event
         .findById(id)
-        // .populate('mainArtist secondaryArtists venue')
+        .populate('mainArtist supportingArtists')
         .then(event => res.json(event))
         .catch(err => res.status(500).json(err))
 })

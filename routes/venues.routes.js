@@ -18,7 +18,7 @@ router.get('/:venueId', (req, res) => {
 
     Venue
         .findById(venueId)
-        .populate('myEvents')
+        .populate('likedArtists likedEvents likedVenues myEvents')
         .then(venue => { res.json(venue) })
         .catch(err => res.status(500).json(err))
 })
