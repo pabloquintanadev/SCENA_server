@@ -22,6 +22,10 @@ const messageSchema = new Schema(
         },
         textContent: {
             type: String,
+        },
+        answered: {
+            type: Boolean,
+            default: false
         }
     },
     {

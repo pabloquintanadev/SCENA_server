@@ -23,6 +23,17 @@ router.post('/create', (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
+router.post('/edit/:messageId', (req, res) => {
+
+    const { messageId } = req.params
+    console.log('HEYYYYY')
+
+    Message
+        .findByIdAndUpdate(messageId, { answered: true })
+        .then(message => res.status(200))
+        .catch(err => res.json(err))
+})
+
 router.post('/delete/:messageId', (req, res) => {
 
     const { messageId } = req.params
