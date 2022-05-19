@@ -30,7 +30,7 @@ router.post('/edit/:messageId', (req, res) => {
 
     Message
         .findByIdAndUpdate(messageId, { answered: true })
-        .then(message => res.status(200))
+        .then(message => res.status(200).json('done'))
         .catch(err => res.json(err))
 })
 
@@ -40,8 +40,8 @@ router.post('/delete/:messageId', (req, res) => {
 
     Message
         .findByIdAndDelete(messageId)
-        .then(() => res.status(200))
-        .catch(err => res.status(500).json(err))
+        .then(() => res.status(200).json('done'))
+        .catch(err => console.log(err))
 })
 
 
